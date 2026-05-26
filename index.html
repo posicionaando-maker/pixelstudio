@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>PixelStudio - Tratamiento de Imagen y Video</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- jsPDF -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e9eef5 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .header {
+            background: white;
+            border-radius: 32px;
+            padding: 24px 32px;
+            margin-bottom: 24px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .logo-svg {
+            width: 60px;
+            height: 60px;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        
+        .logo-svg:active {
+            transform: scale(0.95);
+        }
+
+        .title-area h1 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.8rem;
+            background: linear-gradient(135deg, #FF0066, #00D4FF, #FFD700);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: -0.5px;
+        }
+
+        .title-area p {
+            color: #666;
+            font-size: 0.85rem;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            backdrop-filter: blur(4px);
+            animation: fadeIn 0.3s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .modal-content {
+            background: white;
+            margin: 10% auto;
+            padding: 0;
+            border-radius: 32px;
+            width: 90%;
+            max-width: 500px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            animation: slideUp 0.3s ease;
+            overflow: hidden;
+        }
+        
+        @keyframes slideUp {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        
+        .modal-header {
+            background: linear-gradient(135deg, #FF0066, #FF6699);
+            padding: 20px 24px;
+            color: white;
+        }
+        
+        .modal-header h2 {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+        }
+        
+        .modal-body {
+            padding: 24px;
+        }
+        
+        .modal-body h3 {
+            color: #FF0066;
+            margin-top: 16px;
+            margin-bottom: 8px;
+        }
+        
+        .credits {
+            background: #f0f4ff;
+            padding: 12px 16px;
+            border-radius: 20px;
+            margin: 16px 0;
+            border-left: 4px solid #FFD700;
+        }
+        
+        .phone {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #00D4FF;
+        }
+        
+        .close-modal {
+            background: linear-gradient(135deg, #00D4FF, #0099CC);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 16px;
+        }
+
+        .student-card, .theory-card, .score-panel, .question-card, .conclusion-card {
+            background: white;
+            border-radius: 24px;
+            padding: 20px 28px;
+            margin-bottom: 24px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        .theory-card {
+            background: linear-gradient(120deg, #FF006610, #00D4FF10);
+            border-left: 5px solid #FF0066;
+        }
+
+        .theory-card h3, .conclusion-card h3 {
+            color: #FF0066;
+            margin-bottom: 12px;
+        }
+
+        .theory-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .tag {
+            background: white;
+            padding: 6px 14px;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: #FF0066;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .score-panel {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .score-box {
+            background: linear-gradient(135deg, #FF0066, #FF6699);
+            padding: 12px 24px;
+            border-radius: 40px;
+            color: white;
+            font-weight: bold;
+        }
+
+        .score-box span {
+            font-size: 1.8rem;
+            font-weight: 800;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 40px;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+            transition: all 0.2s;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #00D4FF, #0099CC);
+            color: white;
+        }
+
+        .btn-secondary {
+            background: #FFD700;
+            color: #333;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .questions-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .question-card.correct {
+            border: 2px solid #00C853;
+            background: #f0fff4;
+        }
+
+        .question-card.incorrect {
+            border: 2px solid #FF0066;
+            background: #fff0f3;
+        }
+
+        .question-text {
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+
+        .options {
+            display: flex;
+            gap: 16px;
+        }
+
+        .option-btn {
+            padding: 10px 24px;
+            border: 2px solid #ddd;
+            border-radius: 50px;
+            background: white;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .option-btn.disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .feedback {
+            margin-top: 12px;
+            font-size: 0.85rem;
+            padding: 8px 12px;
+            border-radius: 12px;
+            display: none;
+        }
+
+        .feedback.show {
+            display: block;
+        }
+
+        .feedback.correct-feedback {
+            background: #00C85320;
+            color: #008C3A;
+        }
+
+        .feedback.incorrect-feedback {
+            background: #FF006620;
+            color: #B0004A;
+        }
+
+        .conclusion-card {
+            background: #FFD70020;
+            border: 2px solid #FFD700;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            color: #888;
+            font-size: 0.75rem;
+        }
+
+        @media (max-width: 600px) {
+            .header { flex-direction: column; text-align: center; }
+            .option-btn { padding: 8px 18px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo-area">
+                <svg class="logo-svg" id="mainLogo" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="25" y="25" width="50" height="50" fill="#FF0066" rx="8" opacity="0.9"/>
+                    <polygon points="40,38 40,62 58,50" fill="white"/>
+                    <circle cx="68" cy="32" r="10" fill="#00D4FF" stroke="white" stroke-width="2"/>
+                    <circle cx="70" cy="30" r="3" fill="white"/>
+                    <rect x="20" y="70" width="12" height="12" fill="#00D4FF" rx="2"/>
+                    <rect x="35" y="70" width="12" height="12" fill="#FFD700" rx="2"/>
+                    <rect x="50" y="70" width="12" height="12" fill="#FF0066" rx="2"/>
+                </svg>
+                <div class="title-area">
+                    <h1>PixelStudio</h1>
+                    <p>Tratamiento de Imagen y Video | Semiótica Visual | Composición | Color</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="student-card">
+            <div class="input-group" style="flex:1">
+                <label>📝 Tu nombre completo</label>
+                <input type="text" id="studentName" placeholder="Ej: Ana García López" value="Estudiante" style="width:100%; padding:12px; border-radius:16px; border:2px solid #e0e4e8;">
+            </div>
+        </div>
+
+        <div class="theory-card">
+            <h3>🎓 Fundamentos esenciales (ampliado)</h3>
+            <p><strong>Composición visual:</strong> Regla de los tercios, equilibrio, simetría, peso visual, líneas de fuerza.</p>
+            <p><strong>Resolución y proporción:</strong> DPI/PPI, aspect ratio (16:9, 4:3, 1:1), tamaño de píxel.</p>
+            <p><strong>Lenguaje visual y semiótica:</strong> Ícono (parecido), índice (causa-efecto), símbolo (convención cultural).</p>
+            <p><strong>Psicología del color:</strong> Rojo (pasión/peligro), azul (confianza/tranquilidad), amarillo (energía/atención), verde (naturaleza/salud).</p>
+            <div class="theory-tags">
+                <span class="tag">🎨 Regla de los tercios</span>
+                <span class="tag">📐 16:9 vs 4:3</span>
+                <span class="tag">🔴 Rojo = acción</span>
+                <span class="tag">🔵 Azul = confianza</span>
+                <span class="tag">🟡 Amarillo = alerta</span>
+            </div>
+        </div>
+
+        <div class="score-panel">
+            <div class="score-box">🎯 Calificación: <span id="score">0</span> / <span id="totalQuestions">0</span></div>
+            <div class="buttons-group">
+                <button class="btn btn-secondary" id="resetQuizBtn">🔄 Nuevas preguntas</button>
+                <button class="btn btn-primary" id="generatePDFBtn">📄 Generar PDF informe</button>
+            </div>
+        </div>
+
+        <div id="questionsContainer" class="questions-container"></div>
+
+        <div class="conclusion-card">
+            <h3>📌 Lo fundamental que debes saber</h3>
+            <p>✅ <strong>Composición:</strong> La regla de los tercios y el equilibrio visual guían la mirada.<br>
+            ✅ <strong>Resolución y proporción:</strong> DPI para impresión, PPI para pantalla; el aspect ratio define la forma.<br>
+            ✅ <strong>Semiosis visual:</strong> Toda imagen combina íconos, índices y símbolos.<br>
+            ✅ <strong>Psicología del color:</strong> Los colores evocan emociones universales y culturales.<br>
+            ✅ <strong>Técnica digital:</strong> Raster vs vectorial, formatos, codecs y fps definen la calidad final.</p>
+        </div>
+        <div class="footer">PixelStudio PWA | Aprende Imagen y Video | 🔍 Doble clic en el logo para ayuda y créditos</div>
+    </div>
+
+    <!-- Modal -->
+    <div id="helpModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header"><h2>🎨 PixelStudio - Ayuda</h2></div>
+            <div class="modal-body">
+                <h3>📘 Uso rápido</h3>
+                <p>✔️ Responde Verdadero/Falso.<br>✔️ Escribe tu nombre para el PDF.<br>✔️ "Nuevas preguntas" cambia el set.<br>✔️ La app funciona offline.</p>
+                <h3>👨‍🏫 Créditos</h3>
+                <div class="credits">
+                    <p><strong>Prof. Efraín Rodríguez Sigler</strong></p>
+                    <p>Departamento de Informática</p>
+                    <p>📞 <span class="phone">5271 5892</span></p>
+                </div>
+                <p><strong>PixelStudio v2.0</strong> - 30 preguntas sobre composición, color, semiótica, formatos y video.</p>
+                <button class="close-modal" id="closeModalBtn">Entendido, ¡a estudiar! 🚀</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ==================== 30 PREGUNTAS ACTUALIZADAS ====================
+        const MASTER_QUESTIONS = [
+            // Semiótica visual (4)
+            { text: "En semiótica, un 'ícono' es un signo que se parece físicamente a lo que representa (ej: fotografía).", correct: true, explanation: "Correcto: El ícono mantiene una relación de similitud visual con el objeto." },
+            { text: "El humo que indica fuego es un ejemplo de 'símbolo' en semiótica.", correct: false, explanation: "Falso: Es un 'índice', porque tiene relación causal (el humo es causado por el fuego)." },
+            { text: "La palabra 'paz' escrita es un símbolo, ya que su relación con el significado es arbitraria y cultural.", correct: true, explanation: "Correcto: El lenguaje verbal es simbólico, no hay parecido físico." },
+            { text: "La 'bandera de un país' es un índice porque representa físicamente el territorio.", correct: false, explanation: "Falso: Es un símbolo, su significado se aprende por convención cultural." },
+            
+            // Composición de la imagen (4)
+            { text: "La regla de los tercios divide la imagen en 9 partes iguales y sugiere colocar los elementos importantes en las intersecciones.", correct: true, explanation: "Correcto: Es una guía clásica de composición visual." },
+            { text: "El 'peso visual' se refiere a la capacidad de un elemento de atraer la mirada del espectador.", correct: true, explanation: "Correcto: Colores saturados, formas grandes o contraste aumentan el peso visual." },
+            { text: "Para lograr equilibrio simétrico, los elementos deben tener exactamente el mismo tamaño pero diferente color.", correct: false, explanation: "Falso: El equilibrio simétrico requiere similar peso visual a ambos lados, no necesariamente idéntico tamaño." },
+            { text: "Las líneas diagonales en una composición transmiten calma y estabilidad.", correct: false, explanation: "Falso: Las diagonales transmiten dinamismo, tensión o movimiento; las horizontales transmiten calma." },
+            
+            // Resolución y proporción (4)
+            { text: "DPI (dots per inch) se refiere a la resolución de impresión, mientras que PPI (pixels per inch) es para pantallas.", correct: true, explanation: "Correcto: DPI para impresoras, PPI para monitores digitales." },
+            { text: "Una imagen con 72 PPI es ideal para impresión de alta calidad en revista.", correct: false, explanation: "Falso: 300 PPI es el estándar para impresión; 72 PPI es para web." },
+            { text: "El aspect ratio 16:9 es el estándar actual para televisores y monitores panorámicos.", correct: true, explanation: "Correcto: 16:9 reemplazó al 4:3 en la era HD." },
+            { text: "Una imagen en proporción 1:1 (cuadrada) es común en redes sociales como Instagram.", correct: true, explanation: "Correcto: El formato cuadrado es popular para fotos de perfil y publicaciones." },
+            
+            // Lenguaje visual (4)
+            { text: "El 'lenguaje visual' estudia cómo las imágenes construyen significado mediante códigos culturales y perceptivos.", correct: true, explanation: "Correcto: Abarca composición, color, tipografía, símbolos." },
+            { text: "El encuadre cenital (vista desde arriba) suele transmitir poder o superioridad.", correct: true, explanation: "Correcto: El ángulo de cámara influye en la lectura emocional." },
+            { text: "Un primer plano (close-up) se usa generalmente para mostrar contexto amplio de una escena.", correct: false, explanation: "Falso: El primer plano aísla un detalle o rostro; el plano general da contexto." },
+            { text: "La dirección de la mirada de un personaje dentro del encuadre genera expectativa sobre el espacio fuera de cuadro.", correct: true, explanation: "Correcto: El 'espacio de mirada' es una herramienta narrativa visual." },
+            
+            // Psicología del color (5)
+            { text: "El color rojo se asocia comúnmente con peligro, pasión o urgencia en muchas culturas occidentales.", correct: true, explanation: "Correcto: Rojo aumenta ritmo cardíaco, se usa en señales de stop." },
+            { text: "El azul transmite confianza, calma y profesionalismo, por eso lo usan bancos y redes sociales.", correct: true, explanation: "Correcto: Azul es el color favorito mundial para entornos corporativos." },
+            { text: "El amarillo puro (alta saturación) es recomendado para fondos de textos largos porque reduce la fatiga visual.", correct: false, explanation: "Falso: El amarillo muy brillante cansa la vista; es mejor para detalles de alerta." },
+            { text: "El verde se asocia con naturaleza, salud y crecimiento, pero también con envidia en algunas culturas.", correct: true, explanation: "Correcto: Verde tiene significados duales según contexto." },
+            { text: "El color negro en diseño siempre representa luto o muerte en todas las culturas del mundo.", correct: false, explanation: "Falso: En algunas culturas orientales el luto es blanco; negro puede ser elegancia o poder." },
+            
+            // Formatos y codecs (4)
+            { text: "El formato PNG es ideal para logotipos porque soporta transparencia y compresión sin pérdida.", correct: true, explanation: "Correcto: PNG es lossless y tiene canal alfa." },
+            { text: "El codec H.264 es más antiguo y menos eficiente que H.265 (HEVC) para videos 4K.", correct: true, explanation: "Correcto: H.265 reduce bitrate hasta 50% con misma calidad." },
+            { text: "El formato GIF permite millones de colores y es ideal para fotografías de alta calidad.", correct: false, explanation: "Falso: GIF tiene máximo 256 colores, se usa para animaciones simples." },
+            { text: "Un archivo RAW conserva todos los datos del sensor sin compresión, ideal para edición profesional.", correct: true, explanation: "Correcto: RAW es el negativo digital, permite ajustes sin pérdida." },
+            
+            // Raster/Vectorial (2)
+            { text: "Una imagen vectorial puede ampliarse al tamaño de un cartel sin pixelación.", correct: true, explanation: "Correcto: Los vectores usan matemáticas, no píxeles." },
+            { text: "Photoshop es la herramienta principal para editar imágenes vectoriales nativas.", correct: false, explanation: "Falso: Photoshop es raster; Illustrator, Corel o Inkscape son para vectores." },
+            
+            // Video: fps, entrelazado, keyframes (3)
+            { text: "A mayor tasa de fotogramas por segundo (fps), el movimiento se percibe más fluido.", correct: true, explanation: "Correcto: 60 fps es más fluido que 24 fps, ideal para videojuegos." },
+            { text: "El escaneo progresivo (p) muestra las líneas pares e impares alternadamente, mejor que el entrelazado.", correct: false, explanation: "Falso: El progresivo muestra todas las líneas a la vez; el entrelazado alterna pares e impares." },
+            { text: "Un 'fotograma clave' (keyframe) almacena la imagen completa, permitiendo la búsqueda rápida en un video.", correct: true, explanation: "Correcto: Los I-frames son puntos de acceso independientes." }
+        ];
+
+        // Confirmación: 30 preguntas exactas
+        console.log("Total preguntas cargadas:", MASTER_QUESTIONS.length);
+
+        let currentQuestions = [];
+        let userAnswers = [];
+        let quizFinished = false;
+
+        const questionsContainer = document.getElementById('questionsContainer');
+        const scoreSpan = document.getElementById('score');
+        const totalSpan = document.getElementById('totalQuestions');
+        const resetBtn = document.getElementById('resetQuizBtn');
+        const pdfBtn = document.getElementById('generatePDFBtn');
+        const studentNameInput = document.getElementById('studentName');
+        const modal = document.getElementById('helpModal');
+        const closeModalBtn = document.getElementById('closeModalBtn');
+        const logo = document.getElementById('mainLogo');
+
+        function selectRandomQuestions(count = 5) {
+            const shuffled = [...MASTER_QUESTIONS];
+            for (let i = shuffled.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+            }
+            return shuffled.slice(0, count);
+        }
+
+        function resetQuiz() {
+            currentQuestions = selectRandomQuestions(5);
+            userAnswers = currentQuestions.map(() => ({ selected: null, isCorrect: false }));
+            quizFinished = false;
+            renderQuestions();
+            updateScore();
+        }
+
+        function updateScore() {
+            const correctCount = userAnswers.filter(a => a.isCorrect === true).length;
+            scoreSpan.textContent = correctCount;
+            totalSpan.textContent = currentQuestions.length;
+            const answeredAll = userAnswers.every(a => a.selected !== null);
+            if (answeredAll && !quizFinished) quizFinished = true;
+        }
+
+        function answerQuestion(index, selectedBool) {
+            if (quizFinished) return;
+            if (userAnswers[index].selected !== null) return;
+            const isCorrect = (selectedBool === currentQuestions[index].correct);
+            userAnswers[index] = { selected: selectedBool, isCorrect: isCorrect };
+            renderQuestions();
+            updateScore();
+        }
+
+        function renderQuestions() {
+            questionsContainer.innerHTML = '';
+            currentQuestions.forEach((q, idx) => {
+                const answer = userAnswers[idx];
+                const isAnswered = answer.selected !== null;
+                const card = document.createElement('div');
+                card.className = 'question-card';
+                if (isAnswered) card.classList.add(answer.isCorrect ? 'correct' : 'incorrect');
+                card.innerHTML = `
+                    <div class="question-text"><strong>${idx+1}.</strong> ${q.text}</div>
+                    <div class="options">
+                        <button class="option-btn true" ${isAnswered ? 'disabled' : ''}>✅ Verdadero</button>
+                        <button class="option-btn false" ${isAnswered ? 'disabled' : ''}>❌ Falso</button>
+                    </div>
+                    <div class="feedback ${isAnswered ? 'show' : ''} ${isAnswered ? (answer.isCorrect ? 'correct-feedback' : 'incorrect-feedback') : ''}">
+                        ${isAnswered ? (answer.isCorrect ? `✅ ${q.explanation}` : `❌ Incorrecto. ${q.explanation}`) : ''}
+                    </div>
+                `;
+                const trueBtn = card.querySelector('.true');
+                const falseBtn = card.querySelector('.false');
+                if (!isAnswered) {
+                    trueBtn.onclick = () => answerQuestion(idx, true);
+                    falseBtn.onclick = () => answerQuestion(idx, false);
+                } else {
+                    trueBtn.classList.add('disabled');
+                    falseBtn.classList.add('disabled');
+                }
+                questionsContainer.appendChild(card);
+            });
+        }
+
+        async function generatePDF() {
+            const studentName = studentNameInput.value.trim() || "Estudiante anónimo";
+            const date = new Date().toLocaleString();
+            const correctCount = userAnswers.filter(a => a.isCorrect === true).length;
+            const total = currentQuestions.length;
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+            doc.setFontSize(22);
+            doc.setTextColor(255, 0, 102);
+            doc.text("PixelStudio - Informe de Autoevaluación", 20, 20);
+            doc.setFontSize(11);
+            doc.setTextColor(100,100,100);
+            doc.text(`Fecha: ${date}`, 20, 35);
+            doc.text(`Estudiante: ${studentName}`, 20, 45);
+            doc.text(`Calificación: ${correctCount} / ${total} (${Math.round(correctCount/total*100)}%)`, 20, 55);
+            doc.setFontSize(14);
+            doc.text("Detalle de respuestas:", 20, 70);
+            let y = 80;
+            for (let i=0; i<currentQuestions.length; i++) {
+                if (y > 270) { doc.addPage(); y=20; }
+                const resp = userAnswers[i];
+                const respuestaTexto = resp.selected === null ? "Sin responder" : (resp.selected ? "Verdadero" : "Falso");
+                const estado = resp.isCorrect ? "✓ Correcto" : "✗ Incorrecto";
+                doc.setFontSize(10);
+                doc.text(`${i+1}. ${currentQuestions[i].text.substring(0,70)}...`, 20, y);
+                doc.text(`   Respuesta: ${respuestaTexto} - ${estado}`, 25, y+5);
+                doc.text(`   Explicación: ${currentQuestions[i].explanation.substring(0,80)}`, 25, y+10);
+                y += 20;
+            }
+            doc.addPage();
+            doc.setFontSize(14);
+            doc.setTextColor(255,102,0);
+            doc.text("Conclusiones del tema", 20,20);
+            doc.setFontSize(10);
+            doc.text("✓ Composición (regla de tercios, equilibrio, peso visual).", 20,35);
+            doc.text("✓ Resolución y proporción (DPI, PPI, aspect ratio).", 20,45);
+            doc.text("✓ Semiótica visual y lenguaje visual (ícono, índice, símbolo).", 20,55);
+            doc.text("✓ Psicología del color y su impacto emocional.", 20,65);
+            doc.save(`PixelStudio_${studentName.replace(/\s/g, '_')}.pdf`);
+        }
+
+        // Modal doble clic
+        logo.addEventListener('dblclick', () => modal.style.display = 'block');
+        closeModalBtn.addEventListener('click', () => modal.style.display = 'none');
+        window.addEventListener('click', (e) => { if (e.target === modal) modal.style.display = 'none'; });
+
+        // Service Worker y PWA
+        function setupPWA() {
+            const swCode = `const CACHE_NAME='pixelstudio-v2';const urlsToCache=['./','./index.html','https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Poppins:wght@400;500;600;700&display=swap','https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js'];self.addEventListener('install',e=>e.waitUntil(caches.open(CACHE_NAME).then(c=>c.addAll(urlsToCache))));self.addEventListener('fetch',e=>e.respondWith(caches.match(e.request).then(r=>r||fetch(e.request))));`;
+            const blob = new Blob([swCode], {type:'application/javascript'});
+            navigator.serviceWorker.register(URL.createObjectURL(blob));
+            const manifest = { name:"PixelStudio Edu", short_name:"PixelStudio", start_url:".", display:"standalone", background_color:"#ffffff", theme_color:"#FF0066", icons:[{src:"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23FF0066'/%3E%3Cpolygon points='40,30 40,70 65,50' fill='white'/%3E%3C/svg%3E",sizes:"any",type:"image/svg+xml"}] };
+            const manifestBlob = new Blob([JSON.stringify(manifest)], {type:'application/json'});
+            const link = document.createElement('link');
+            link.rel = 'manifest';
+            link.href = URL.createObjectURL(manifestBlob);
+            document.head.appendChild(link);
+        }
+        setupPWA();
+        resetBtn.onclick = resetQuiz;
+        pdfBtn.onclick = generatePDF;
+        resetQuiz();
+    </script>
+</body>
+</html>
