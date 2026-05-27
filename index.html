@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>PixelStudio - Tratamiento de Imagen y Video (IA + Nube)</title>
+    <title>PixelStudio - Tratamiento de Imagen y Video</title>
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <!-- jsPDF -->
@@ -443,7 +443,7 @@
                     <circle cx="80" cy="80" r="2.5" fill="#00D4FF"/>
                 </svg>
                 <div class="title-area">
-                    <h1>PixelStudio <span class="badge">+IA +Nube</span></h1>
+                    <h1>PixelStudio <span class="badge"></span></h1>
                     <p>Tratamiento de Imagen y Video | Semiótica | Composición | IA | Cloud</p>
                 </div>
             </div>
@@ -452,9 +452,8 @@
         <!-- Resumen motivacional CON ESPACIADO MEJORADO -->
         <div class="summary-card">
             <h3>🎬 ¿Por qué es importante este tema?</h3>
-            <p>Vivimos en la era de la imagen. Cada día consumimos y creamos miles de imágenes y videos: en redes sociales, cine, publicidad, medicina, ciencia y arte.</p>
-            <p><strong>Entender cómo se construyen, procesan y transforman digitalmente</strong> te da <em>superpoderes visuales</em>: podrás analizar críticamente lo que ves, comunicar mejor tus ideas y usar herramientas de vanguardia como la Inteligencia Artificial y la Nube.</p>
-            <p>¡Prepárate para ver más allá del píxel! 🚀</p>
+            <p>Vivimos en la era de la imagen. Cada día se crean y consumen millones de imágenes y videos en la enseñanza.</p>
+            <p><strong>Entender cómo se construyen, procesan y transforman digitalmente</strong> ayuda a analizar críticamente lo que ven y comunicar mejor sus ideas.</p>
         </div>
 
         <div class="student-card">
@@ -507,7 +506,7 @@
             </ul>
         </div>
         <div class="footer">
-            PixelStudio PWA v3.0 | Aprende Imagen, Video, IA y Nube | 🔍 Doble clic en el logo para ayuda y créditos
+            PixelStudio PWA v0.0 | Tratamiento de Imagen y Video | 🔍 Doble clic en el logo para ayuda y créditos
         </div>
     </div>
 
@@ -518,9 +517,9 @@
             <div class="modal-body">
                 <h3>📘 Uso rápido</h3>
                 <p>✔️ Responde Verdadero/Falso a las 5 preguntas aleatorias.<br>
-                ✔️ Escribe tu nombre para personalizar el PDF.<br>
+                ✔️ Escribe tu nombre para el informe en PDF.<br>
                 ✔️ "Nuevas preguntas" cambia el set (hay 38 en total).<br>
-                ✔️ "Generar PDF" descarga un informe con tus respuestas.<br>
+                ✔️ "Generar PDF" descargar un informe con tus respuestas.<br>
                 ✔️ La app funciona offline después de la primera carga.</p>
                 
                 <h3>🤖 Temas incluidos (38 preguntas)</h3>
@@ -535,12 +534,12 @@
                     <p><strong>Prof. Efraín Rodríguez Sigler</strong></p>
                     <p>Asignatura: Tratamiento de Imagen y Video</p>
                     <p>Departamento de Informática</p>
-                    <p><strong>UMCC</strong> (Universidad del Ministerio de la Construcción y la Comunicación)</p>
+                    <p><strong>UMCC</strong> (Universidad de Matanzas Camilo Cienfuegos)</p>
                     <p>📞 <span class="phone">5271 5892</span></p>
                 </div>
-                <p><strong>PixelStudio v3.0</strong> - PWA educativa para Tratamiento de Imagen y Video<br>
-                Incluye fundamentos tradicionales + Inteligencia Artificial + Computación en la Nube.</p>
-                <button class="close-modal" id="closeModalBtn">Entendido, ¡a estudiar! 🚀</button>
+                <p><strong>PixelStudio v0.0</strong> - PWA educativa para Tratamiento de Imagen y Video<br>
+                </p>
+                <button class="close-modal" id="closeModalBtn">¡A estudiar! </button>
             </div>
         </div>
     </div>
@@ -743,7 +742,7 @@
             doc.addPage();
             doc.setFontSize(16);
             doc.setTextColor(255, 102, 0);
-            doc.text("Conclusiones del tema (incluyendo IA y Nube)", 20, 25);
+            doc.text("Conclusiones del tema", 20, 25);
             doc.setFontSize(10);
             doc.setTextColor(0, 0, 0);
             const conclusions = [
@@ -765,7 +764,7 @@
             
             doc.setFontSize(10);
             doc.setTextColor(100, 100, 100);
-            doc.text("Recomendación: Repasar los conceptos donde fallaste y practicar con nuevas preguntas.", 20, yc + 15);
+            doc.text("Recomendación: Repasar los conceptos y practicar con nuevas preguntas.", 20, yc + 15);
             
             doc.save(`PixelStudio_IA_Cloud_${studentName.replace(/\s/g, '_')}.pdf`);
         }
@@ -779,7 +778,7 @@
             const blob = new Blob([swCode], {type:'application/javascript'});
             navigator.serviceWorker.register(URL.createObjectURL(blob));
             const manifest = {
-                name: "PixelStudio IA + Cloud",
+                name: "PixelStudio",
                 short_name: "PixelStudio",
                 start_url: ".",
                 display: "standalone",
