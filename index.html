@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>PixelStudio - Tratamiento de Imagen y Video</title>
+    <title>PixelStudio - Tratamiento de Imagen y Video (IA + Nube)</title>
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <!-- jsPDF -->
@@ -83,31 +83,33 @@
             margin-left: 10px;
         }
 
-        /* Resumen motivacional */
+        /* Resumen motivacional - ESPACIADO MEJORADO */
         .summary-card {
             background: linear-gradient(135deg, #FFD70015, #00D4FF15);
             border-radius: 24px;
-            padding: 20px 28px;
+            padding: 28px 32px;
             margin-bottom: 24px;
             border: 1px solid #FFD70040;
-            text-align: center;
+            text-align: left;
         }
 
         .summary-card h3 {
             color: #FF0066;
-            margin-bottom: 12px;
-            font-size: 1.2rem;
+            margin-bottom: 16px;
+            font-size: 1.3rem;
         }
 
         .summary-card p {
-            color: #444;
-            line-height: 1.6;
+            color: #333;
+            line-height: 1.9;
+            font-size: 1.05rem;
+            margin-bottom: 12px;
         }
 
         .summary-card em {
             font-style: italic;
             color: #00D4FF;
-            font-weight: 500;
+            font-weight: 600;
         }
 
         /* Modal */
@@ -258,12 +260,17 @@
             border: 1px solid #00D4FF;
         }
 
+        /* Panel de puntuación - BOTONES SEPARADOS */
         .score-panel {
+            background: white;
+            border-radius: 20px;
+            padding: 20px 28px;
+            margin-bottom: 24px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             flex-wrap: wrap;
-            gap: 15px;
+            gap: 20px;
         }
 
         .score-box {
@@ -279,14 +286,23 @@
             font-weight: 800;
         }
 
+        /* Grupo de botones con espaciado vertical en móvil */
+        .buttons-group {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
         .btn {
-            padding: 10px 20px;
+            padding: 12px 28px;
             border: none;
-            border-radius: 40px;
-            font-weight: 600;
+            border-radius: 48px;
+            font-weight: 700;
             cursor: pointer;
             font-family: 'Inter', sans-serif;
+            font-size: 0.95rem;
             transition: all 0.2s;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
 
         .btn-primary {
@@ -295,13 +311,13 @@
         }
 
         .btn-secondary {
-            background: #FFD700;
+            background: linear-gradient(135deg, #FFD700, #FFB300);
             color: #333;
         }
 
         .btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.15);
         }
 
         .questions-container {
@@ -404,6 +420,10 @@
             .header { flex-direction: column; text-align: center; }
             .option-btn { padding: 8px 18px; }
             .modal-content { margin: 15% auto; width: 95%; }
+            .score-panel { flex-direction: column; text-align: center; }
+            .buttons-group { justify-content: center; width: 100%; }
+            .btn { flex: 1; min-width: 160px; text-align: center; }
+            .summary-card p { font-size: 0.95rem; line-height: 1.7; }
         }
     </style>
 </head>
@@ -423,17 +443,19 @@
                     <circle cx="80" cy="80" r="2.5" fill="#00D4FF"/>
                 </svg>
                 <div class="title-area">
-                    <h1>PixelStudio <span class="badge"> </span></h1>
+                    <h1>PixelStudio <span class="badge">+IA +Nube</span></h1>
                     <p>Tratamiento de Imagen y Video | Semiótica | Composición | IA | Cloud</p>
                 </div>
             </div>
         </div>
 
-        <!-- === NUEVO: RESUMEN CORTO Y MOTIVACIONAL === -->
+        <!-- Resumen motivacional CON ESPACIADO MEJORADO -->
         <div class="summary-card">
-            <h3>🎬 ¿Por qué es importante la asignatura?</h3>
+            <h3>🎬 ¿Por qué es importante este tema?</h3>
+            <p>Vivimos en la era de la imagen. Cada día consumimos y creamos miles de imágenes y videos: en redes sociales, cine, publicidad, medicina, ciencia y arte.</p>
+            <p><strong>Entender cómo se construyen, procesan y transforman digitalmente</strong> te da <em>superpoderes visuales</em>: podrás analizar críticamente lo que ves, comunicar mejor tus ideas y usar herramientas de vanguardia como la Inteligencia Artificial y la Nube.</p>
+            <p>¡Prepárate para ver más allá del píxel! 🚀</p>
         </div>
-            <p>Vivimos en la era de la imagen. Cada día se crean y consumen miles de imágenes y videos, sobre todo en apoyo a la enseñanza. <strong>Entender cómo se construyen, procesan y transforman digitalmente para comunicar mejor sus ideas </strong> </p>
 
         <div class="student-card">
             <div class="input-group">
@@ -443,7 +465,7 @@
         </div>
 
         <div class="theory-card">
-            <h3>🎓 Fundamentos esenciales</h3>
+            <h3>🎓 Fundamentos esenciales + IA y Nube</h3>
             <p><strong>Composición visual:</strong> Regla de los tercios, equilibrio, peso visual, líneas de fuerza.</p>
             <p><strong>Resolución y proporción:</strong> DPI/PPI, aspect ratio (16:9, 4:3, 1:1).</p>
             <p><strong>Semiotica y lenguaje visual:</strong> Ícono (parecido), índice (causa-efecto), símbolo (convención cultural).</p>
@@ -460,6 +482,7 @@
             </div>
         </div>
 
+        <!-- Panel de puntuación con BOTONES SEPARADOS -->
         <div class="score-panel">
             <div class="score-box">🎯 Calificación: <span id="score">0</span> / <span id="totalQuestions">0</span></div>
             <div class="buttons-group">
@@ -471,7 +494,7 @@
         <div id="questionsContainer" class="questions-container"></div>
 
         <div class="conclusion-card">
-            <h3>📌 Lo fundamental que debes saber </h3>
+            <h3>📌 Lo fundamental que debes saber (incluyendo IA y Nube)</h3>
             <ul>
                 <li>✅ <strong>Composición:</strong> La regla de los tercios y el equilibrio visual guían la mirada del espectador.</li>
                 <li>✅ <strong>Resolución y proporción:</strong> DPI para impresión, PPI para pantalla; el aspect ratio define la forma del encuadre.</li>
@@ -484,7 +507,7 @@
             </ul>
         </div>
         <div class="footer">
-            PixelStudio PWA v0.0 | Aprende Imagen y Video | 🔍 Doble clic en el logo para ayuda y créditos
+            PixelStudio PWA v3.0 | Aprende Imagen, Video, IA y Nube | 🔍 Doble clic en el logo para ayuda y créditos
         </div>
     </div>
 
@@ -495,7 +518,7 @@
             <div class="modal-body">
                 <h3>📘 Uso rápido</h3>
                 <p>✔️ Responde Verdadero/Falso a las 5 preguntas aleatorias.<br>
-                ✔️ Escribe tu nombre para enviar el informe al profe (PDF).<br>
+                ✔️ Escribe tu nombre para personalizar el PDF.<br>
                 ✔️ "Nuevas preguntas" cambia el set (hay 38 en total).<br>
                 ✔️ "Generar PDF" descarga un informe con tus respuestas.<br>
                 ✔️ La app funciona offline después de la primera carga.</p>
@@ -512,7 +535,7 @@
                     <p><strong>Prof. Efraín Rodríguez Sigler</strong></p>
                     <p>Asignatura: Tratamiento de Imagen y Video</p>
                     <p>Departamento de Informática</p>
-                    <p><strong>UMCC</strong> (Universidad de Matanzas Camilo Cienfuegos)</p>
+                    <p><strong>UMCC</strong> (Universidad del Ministerio de la Construcción y la Comunicación)</p>
                     <p>📞 <span class="phone">5271 5892</span></p>
                 </div>
                 <p><strong>PixelStudio v3.0</strong> - PWA educativa para Tratamiento de Imagen y Video<br>
@@ -586,7 +609,6 @@
             { text: "El 'cloud rendering' permite procesar animaciones 3D en servidores remotos, liberando la computadora local.", correct: true, explanation: "Correcto: Servicios como AWS Thinkbox, Google Cloud Render o Chaos Cloud realizan renderizado masivo escalable." }
         ];
 
-        // Verificación: deben ser 38 preguntas
         console.log("Total preguntas cargadas:", MASTER_QUESTIONS.length);
 
         let currentQuestions = [];
@@ -636,7 +658,6 @@
             renderQuestions();
             updateScore();
             
-            // Auto-scroll a siguiente pregunta
             const nextUnanswered = userAnswers.findIndex((a, idx) => a.selected === null);
             if (nextUnanswered !== -1) {
                 const nextCard = document.querySelector(`.question-card[data-idx='${nextUnanswered}']`);
@@ -687,7 +708,6 @@
             const { jsPDF } = window.jspdf;
             const doc = new jsPDF();
             
-            // Título
             doc.setFontSize(22);
             doc.setTextColor(255, 0, 102);
             doc.text("PixelStudio - Informe de Autoevaluación", 20, 20);
@@ -700,7 +720,6 @@
             doc.setTextColor(0, 0, 0);
             doc.text(`Calificación: ${correctCount} / ${total} (${percentage}%)`, 20, 65);
             
-            // Detalle de respuestas
             doc.setFontSize(12);
             doc.text("Detalle de respuestas:", 20, 80);
             let y = 92;
@@ -721,7 +740,6 @@
                 y += 18;
             }
             
-            // Conclusiones ampliadas
             doc.addPage();
             doc.setFontSize(16);
             doc.setTextColor(255, 102, 0);
@@ -752,18 +770,16 @@
             doc.save(`PixelStudio_IA_Cloud_${studentName.replace(/\s/g, '_')}.pdf`);
         }
 
-        // Modal doble clic
         logo.addEventListener('dblclick', () => modal.style.display = 'block');
         closeModalBtn.addEventListener('click', () => modal.style.display = 'none');
         window.addEventListener('click', (e) => { if (e.target === modal) modal.style.display = 'none'; });
 
-        // Service Worker y PWA
         function setupPWA() {
             const swCode = `const CACHE_NAME='pixelstudio-v3';const urlsToCache=['./','./index.html','https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Poppins:wght@400;500;600;700&display=swap','https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js'];self.addEventListener('install',e=>e.waitUntil(caches.open(CACHE_NAME).then(c=>c.addAll(urlsToCache))));self.addEventListener('fetch',e=>e.respondWith(caches.match(e.request).then(r=>r||fetch(e.request))));`;
             const blob = new Blob([swCode], {type:'application/javascript'});
             navigator.serviceWorker.register(URL.createObjectURL(blob));
             const manifest = {
-                name: "PixelStudio",
+                name: "PixelStudio IA + Cloud",
                 short_name: "PixelStudio",
                 start_url: ".",
                 display: "standalone",
