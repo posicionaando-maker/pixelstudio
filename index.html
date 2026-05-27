@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>PixelStudio - Tratamiento de Imagen y Video</title>
+    <title>PixelStudio - Tratamiento de Imagen y Video (IA + Nube)</title>
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <!-- jsPDF -->
@@ -23,7 +23,7 @@
         }
 
         .container {
-            max-width: 900px;
+            max-width: 950px;
             margin: 0 auto;
         }
 
@@ -69,7 +69,45 @@
 
         .title-area p {
             color: #666;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
+        }
+
+        .badge {
+            background: linear-gradient(135deg, #FF0066, #FF6699);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 50px;
+            font-size: 0.7rem;
+            font-weight: bold;
+            display: inline-block;
+            margin-left: 10px;
+        }
+
+        /* Resumen motivacional */
+        .summary-card {
+            background: linear-gradient(135deg, #FFD70015, #00D4FF15);
+            border-radius: 24px;
+            padding: 20px 28px;
+            margin-bottom: 24px;
+            border: 1px solid #FFD70040;
+            text-align: center;
+        }
+
+        .summary-card h3 {
+            color: #FF0066;
+            margin-bottom: 12px;
+            font-size: 1.2rem;
+        }
+
+        .summary-card p {
+            color: #444;
+            line-height: 1.6;
+        }
+
+        .summary-card em {
+            font-style: italic;
+            color: #00D4FF;
+            font-weight: 500;
         }
 
         /* Modal */
@@ -93,11 +131,11 @@
         
         .modal-content {
             background: white;
-            margin: 10% auto;
+            margin: 8% auto;
             padding: 0;
             border-radius: 32px;
             width: 90%;
-            max-width: 500px;
+            max-width: 550px;
             box-shadow: 0 20px 40px rgba(0,0,0,0.2);
             animation: slideUp 0.3s ease;
             overflow: hidden;
@@ -121,6 +159,8 @@
         
         .modal-body {
             padding: 24px;
+            max-height: 70vh;
+            overflow-y: auto;
         }
         
         .modal-body h3 {
@@ -163,6 +203,24 @@
             box-shadow: 0 4px 15px rgba(0,0,0,0.05);
         }
 
+        .input-group label {
+            display: block;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #FF0066;
+            margin-bottom: 6px;
+            text-transform: uppercase;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e0e4e8;
+            border-radius: 16px;
+            font-size: 1rem;
+            font-family: 'Inter', sans-serif;
+        }
+
         .theory-card {
             background: linear-gradient(120deg, #FF006610, #00D4FF10);
             border-left: 5px solid #FF0066;
@@ -171,6 +229,11 @@
         .theory-card h3, .conclusion-card h3 {
             color: #FF0066;
             margin-bottom: 12px;
+        }
+
+        .theory-card p {
+            line-height: 1.6;
+            margin-bottom: 10px;
         }
 
         .theory-tags {
@@ -188,6 +251,11 @@
             font-weight: 600;
             color: #FF0066;
             box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .tag-ai {
+            background: linear-gradient(135deg, #00D4FF20, #FF006620);
+            border: 1px solid #00D4FF;
         }
 
         .score-panel {
@@ -270,6 +338,17 @@
             background: white;
             cursor: pointer;
             font-weight: 600;
+            transition: all 0.2s;
+        }
+
+        .option-btn.true:hover {
+            border-color: #00C853;
+            background: #00C85310;
+        }
+
+        .option-btn.false:hover {
+            border-color: #FF0066;
+            background: #FF006610;
         }
 
         .option-btn.disabled {
@@ -304,6 +383,15 @@
             border: 2px solid #FFD700;
         }
 
+        .conclusion-card ul {
+            margin-left: 20px;
+            margin-top: 10px;
+        }
+
+        .conclusion-card li {
+            margin-bottom: 8px;
+        }
+
         .footer {
             text-align: center;
             margin-top: 40px;
@@ -315,6 +403,7 @@
         @media (max-width: 600px) {
             .header { flex-direction: column; text-align: center; }
             .option-btn { padding: 8px 18px; }
+            .modal-content { margin: 15% auto; width: 95%; }
         }
     </style>
 </head>
@@ -330,33 +419,44 @@
                     <rect x="20" y="70" width="12" height="12" fill="#00D4FF" rx="2"/>
                     <rect x="35" y="70" width="12" height="12" fill="#FFD700" rx="2"/>
                     <rect x="50" y="70" width="12" height="12" fill="#FF0066" rx="2"/>
+                    <circle cx="80" cy="80" r="6" fill="white" stroke="#00D4FF" stroke-width="1.5"/>
+                    <circle cx="80" cy="80" r="2.5" fill="#00D4FF"/>
                 </svg>
                 <div class="title-area">
-                    <h1>PixelStudio</h1>
-                    <p>Tratamiento de Imagen y Video | Semiótica Visual | Composición | Color</p>
+                    <h1>PixelStudio <span class="badge">+IA +Nube</span></h1>
+                    <p>Tratamiento de Imagen y Video | Semiótica | Composición | IA | Cloud</p>
                 </div>
             </div>
         </div>
 
+        <!-- === NUEVO: RESUMEN CORTO Y MOTIVACIONAL === -->
+        <div class="summary-card">
+            <h3>🎬 ¿Por qué es importante este tema?</h3>
+            <p>Vivimos en la era de la imagen. Cada día consumimos y creamos miles de imágenes y videos: en redes sociales, cine, publicidad, medicina, ciencia y arte. <strong>Entender cómo se construyen, procesan y transforman digitalmente</strong> te da <em>superpoderes visuales</em>: podrás analizar críticamente lo que ves, comunicar mejor tus ideas y usar herramientas de vanguardia como la Inteligencia Artificial y la Nube. ¡Prepárate para ver más allá del píxel!</p>
+        </div>
+
         <div class="student-card">
-            <div class="input-group" style="flex:1">
+            <div class="input-group">
                 <label>📝 Tu nombre completo</label>
-                <input type="text" id="studentName" placeholder="Ej: Ana García López" value="Estudiante" style="width:100%; padding:12px; border-radius:16px; border:2px solid #e0e4e8;">
+                <input type="text" id="studentName" placeholder="Ej: Ana García López" value="Estudiante">
             </div>
         </div>
 
         <div class="theory-card">
-            <h3>🎓 Fundamentos esenciales (ampliado)</h3>
-            <p><strong>Composición visual:</strong> Regla de los tercios, equilibrio, simetría, peso visual, líneas de fuerza.</p>
-            <p><strong>Resolución y proporción:</strong> DPI/PPI, aspect ratio (16:9, 4:3, 1:1), tamaño de píxel.</p>
-            <p><strong>Lenguaje visual y semiótica:</strong> Ícono (parecido), índice (causa-efecto), símbolo (convención cultural).</p>
-            <p><strong>Psicología del color:</strong> Rojo (pasión/peligro), azul (confianza/tranquilidad), amarillo (energía/atención), verde (naturaleza/salud).</p>
+            <h3>🎓 Fundamentos esenciales + IA y Nube</h3>
+            <p><strong>Composición visual:</strong> Regla de los tercios, equilibrio, peso visual, líneas de fuerza.</p>
+            <p><strong>Resolución y proporción:</strong> DPI/PPI, aspect ratio (16:9, 4:3, 1:1).</p>
+            <p><strong>Semiotica y lenguaje visual:</strong> Ícono (parecido), índice (causa-efecto), símbolo (convención cultural).</p>
+            <p><strong>Psicología del color:</strong> Rojo (pasión/peligro), azul (confianza), amarillo (energía), verde (naturaleza).</p>
+            <p><strong>🤖 IA en imagen/video:</strong> Upscaling con IA (Topaz, ESRGAN), generación de imágenes (DALL-E, Midjourney, Stable Diffusion), deepfakes, interpolación de frames (DAIN, RIFE), reconocimiento de objetos y segmentación semántica.</p>
+            <p><strong>☁️ Nube y flujos de trabajo:</strong> Almacenamiento en la nube (Google Drive, Dropbox, AWS S3), edición colaborativa (Frame.io, Canva), procesamiento remoto (cloud rendering, transcodificación automática).</p>
             <div class="theory-tags">
                 <span class="tag">🎨 Regla de los tercios</span>
                 <span class="tag">📐 16:9 vs 4:3</span>
                 <span class="tag">🔴 Rojo = acción</span>
-                <span class="tag">🔵 Azul = confianza</span>
-                <span class="tag">🟡 Amarillo = alerta</span>
+                <span class="tag tag-ai">🤖 IA Upscaling</span>
+                <span class="tag tag-ai">☁️ Cloud Rendering</span>
+                <span class="tag tag-ai">🎭 Deepfakes</span>
             </div>
         </div>
 
@@ -371,86 +471,122 @@
         <div id="questionsContainer" class="questions-container"></div>
 
         <div class="conclusion-card">
-            <h3>📌 Lo fundamental que debes saber</h3>
-            <p>✅ <strong>Composición:</strong> La regla de los tercios y el equilibrio visual guían la mirada.<br>
-            ✅ <strong>Resolución y proporción:</strong> DPI para impresión, PPI para pantalla; el aspect ratio define la forma.<br>
-            ✅ <strong>Semiosis visual:</strong> Toda imagen combina íconos, índices y símbolos.<br>
-            ✅ <strong>Psicología del color:</strong> Los colores evocan emociones universales y culturales.<br>
-            ✅ <strong>Técnica digital:</strong> Raster vs vectorial, formatos, codecs y fps definen la calidad final.</p>
+            <h3>📌 Lo fundamental que debes saber (incluyendo IA y Nube)</h3>
+            <ul>
+                <li>✅ <strong>Composición:</strong> La regla de los tercios y el equilibrio visual guían la mirada del espectador.</li>
+                <li>✅ <strong>Resolución y proporción:</strong> DPI para impresión, PPI para pantalla; el aspect ratio define la forma del encuadre.</li>
+                <li>✅ <strong>Semiosis visual:</strong> Toda imagen combina íconos, índices y símbolos que construyen significado cultural.</li>
+                <li>✅ <strong>Psicología del color:</strong> Los colores evocan emociones universales (rojo=alerta, azul=confianza, amarillo=energía).</li>
+                <li>✅ <strong>🤖 IA en imagen:</strong> Herramientas como DALL-E, Midjourney y Stable Diffusion generan imágenes por texto; ESRGAN y Topaz Gigapixel permiten upscaling inteligente.</li>
+                <li>✅ <strong>🤖 IA en video:</strong> DAIN y RIFE interpolan frames para aumentar fps; los deepfakes usan autoencoders para intercambiar rostros.</li>
+                <li>✅ <strong>☁️ Nube en flujos de trabajo:</strong> Plataformas como Frame.io permiten revisión colaborativa; AWS Elemental y Google Cloud Video Intelligence ofrecen procesamiento automático.</li>
+                <li>✅ <strong>Técnica digital tradicional:</strong> Raster vs vectorial, formatos (PNG, JPEG, GIF), codecs (H.264, H.265) y fps definen la calidad final.</li>
+            </ul>
         </div>
-        <div class="footer">PixelStudio PWA | Aprende Imagen y Video | 🔍 Doble clic en el logo para ayuda y créditos</div>
+        <div class="footer">
+            PixelStudio PWA v3.0 | Aprende Imagen, Video, IA y Nube | 🔍 Doble clic en el logo para ayuda y créditos
+        </div>
     </div>
 
     <!-- Modal -->
     <div id="helpModal" class="modal">
         <div class="modal-content">
-            <div class="modal-header"><h2>🎨 PixelStudio - Ayuda</h2></div>
+            <div class="modal-header"><h2>🎨 PixelStudio - Ayuda + Créditos</h2></div>
             <div class="modal-body">
                 <h3>📘 Uso rápido</h3>
-                <p>✔️ Responde Verdadero/Falso.<br>✔️ Escribe tu nombre para el PDF.<br>✔️ "Nuevas preguntas" cambia el set.<br>✔️ La app funciona offline.</p>
+                <p>✔️ Responde Verdadero/Falso a las 5 preguntas aleatorias.<br>
+                ✔️ Escribe tu nombre para personalizar el PDF.<br>
+                ✔️ "Nuevas preguntas" cambia el set (hay 38 en total).<br>
+                ✔️ "Generar PDF" descarga un informe con tus respuestas.<br>
+                ✔️ La app funciona offline después de la primera carga.</p>
+                
+                <h3>🤖 Temas incluidos (38 preguntas)</h3>
+                <p>• Semiótica visual • Composición • Resolución/Proporción • Lenguaje visual<br>
+                • Psicología del color • Formatos y codecs • Raster/Vectorial • Video (fps)<br>
+                • <strong>IA en imagen (generación, upscaling, reconocimiento)</strong><br>
+                • <strong>IA en video (interpolación, deepfakes, estabilización)</strong><br>
+                • <strong>Nube y flujos de trabajo colaborativo</strong></p>
+                
                 <h3>👨‍🏫 Créditos</h3>
                 <div class="credits">
                     <p><strong>Prof. Efraín Rodríguez Sigler</strong></p>
+                    <p>Asignatura: Tratamiento de Imagen y Video</p>
                     <p>Departamento de Informática</p>
+                    <p><strong>UMCC</strong> (Universidad de Matanzas Camilo Cienfuegos)</p>
                     <p>📞 <span class="phone">5271 5892</span></p>
                 </div>
-                <p><strong>PixelStudio v2.0</strong> - 30 preguntas sobre composición, color, semiótica, formatos y video.</p>
+                <p><strong>PixelStudio v3.0</strong> - PWA educativa para Tratamiento de Imagen y Video<br>
+                Incluye fundamentos tradicionales + Inteligencia Artificial + Computación en la Nube.</p>
                 <button class="close-modal" id="closeModalBtn">Entendido, ¡a estudiar! 🚀</button>
             </div>
         </div>
     </div>
 
     <script>
-        // ==================== 30 PREGUNTAS ACTUALIZADAS ====================
+        // ==================== 38 PREGUNTAS (incluye IA y Nube) ====================
         const MASTER_QUESTIONS = [
-            // Semiótica visual (4)
+            // === Semiótica visual (4) ===
             { text: "En semiótica, un 'ícono' es un signo que se parece físicamente a lo que representa (ej: fotografía).", correct: true, explanation: "Correcto: El ícono mantiene una relación de similitud visual con el objeto." },
             { text: "El humo que indica fuego es un ejemplo de 'símbolo' en semiótica.", correct: false, explanation: "Falso: Es un 'índice', porque tiene relación causal (el humo es causado por el fuego)." },
             { text: "La palabra 'paz' escrita es un símbolo, ya que su relación con el significado es arbitraria y cultural.", correct: true, explanation: "Correcto: El lenguaje verbal es simbólico, no hay parecido físico." },
             { text: "La 'bandera de un país' es un índice porque representa físicamente el territorio.", correct: false, explanation: "Falso: Es un símbolo, su significado se aprende por convención cultural." },
             
-            // Composición de la imagen (4)
+            // === Composición de la imagen (4) ===
             { text: "La regla de los tercios divide la imagen en 9 partes iguales y sugiere colocar los elementos importantes en las intersecciones.", correct: true, explanation: "Correcto: Es una guía clásica de composición visual." },
             { text: "El 'peso visual' se refiere a la capacidad de un elemento de atraer la mirada del espectador.", correct: true, explanation: "Correcto: Colores saturados, formas grandes o contraste aumentan el peso visual." },
             { text: "Para lograr equilibrio simétrico, los elementos deben tener exactamente el mismo tamaño pero diferente color.", correct: false, explanation: "Falso: El equilibrio simétrico requiere similar peso visual a ambos lados, no necesariamente idéntico tamaño." },
             { text: "Las líneas diagonales en una composición transmiten calma y estabilidad.", correct: false, explanation: "Falso: Las diagonales transmiten dinamismo, tensión o movimiento; las horizontales transmiten calma." },
             
-            // Resolución y proporción (4)
+            // === Resolución y proporción (4) ===
             { text: "DPI (dots per inch) se refiere a la resolución de impresión, mientras que PPI (pixels per inch) es para pantallas.", correct: true, explanation: "Correcto: DPI para impresoras, PPI para monitores digitales." },
             { text: "Una imagen con 72 PPI es ideal para impresión de alta calidad en revista.", correct: false, explanation: "Falso: 300 PPI es el estándar para impresión; 72 PPI es para web." },
             { text: "El aspect ratio 16:9 es el estándar actual para televisores y monitores panorámicos.", correct: true, explanation: "Correcto: 16:9 reemplazó al 4:3 en la era HD." },
             { text: "Una imagen en proporción 1:1 (cuadrada) es común en redes sociales como Instagram.", correct: true, explanation: "Correcto: El formato cuadrado es popular para fotos de perfil y publicaciones." },
             
-            // Lenguaje visual (4)
+            // === Lenguaje visual (4) ===
             { text: "El 'lenguaje visual' estudia cómo las imágenes construyen significado mediante códigos culturales y perceptivos.", correct: true, explanation: "Correcto: Abarca composición, color, tipografía, símbolos." },
             { text: "El encuadre cenital (vista desde arriba) suele transmitir poder o superioridad.", correct: true, explanation: "Correcto: El ángulo de cámara influye en la lectura emocional." },
             { text: "Un primer plano (close-up) se usa generalmente para mostrar contexto amplio de una escena.", correct: false, explanation: "Falso: El primer plano aísla un detalle o rostro; el plano general da contexto." },
             { text: "La dirección de la mirada de un personaje dentro del encuadre genera expectativa sobre el espacio fuera de cuadro.", correct: true, explanation: "Correcto: El 'espacio de mirada' es una herramienta narrativa visual." },
             
-            // Psicología del color (5)
+            // === Psicología del color (5) ===
             { text: "El color rojo se asocia comúnmente con peligro, pasión o urgencia en muchas culturas occidentales.", correct: true, explanation: "Correcto: Rojo aumenta ritmo cardíaco, se usa en señales de stop." },
             { text: "El azul transmite confianza, calma y profesionalismo, por eso lo usan bancos y redes sociales.", correct: true, explanation: "Correcto: Azul es el color favorito mundial para entornos corporativos." },
             { text: "El amarillo puro (alta saturación) es recomendado para fondos de textos largos porque reduce la fatiga visual.", correct: false, explanation: "Falso: El amarillo muy brillante cansa la vista; es mejor para detalles de alerta." },
             { text: "El verde se asocia con naturaleza, salud y crecimiento, pero también con envidia en algunas culturas.", correct: true, explanation: "Correcto: Verde tiene significados duales según contexto." },
             { text: "El color negro en diseño siempre representa luto o muerte en todas las culturas del mundo.", correct: false, explanation: "Falso: En algunas culturas orientales el luto es blanco; negro puede ser elegancia o poder." },
             
-            // Formatos y codecs (4)
+            // === Formatos y codecs (4) ===
             { text: "El formato PNG es ideal para logotipos porque soporta transparencia y compresión sin pérdida.", correct: true, explanation: "Correcto: PNG es lossless y tiene canal alfa." },
             { text: "El codec H.264 es más antiguo y menos eficiente que H.265 (HEVC) para videos 4K.", correct: true, explanation: "Correcto: H.265 reduce bitrate hasta 50% con misma calidad." },
             { text: "El formato GIF permite millones de colores y es ideal para fotografías de alta calidad.", correct: false, explanation: "Falso: GIF tiene máximo 256 colores, se usa para animaciones simples." },
             { text: "Un archivo RAW conserva todos los datos del sensor sin compresión, ideal para edición profesional.", correct: true, explanation: "Correcto: RAW es el negativo digital, permite ajustes sin pérdida." },
             
-            // Raster/Vectorial (2)
+            // === Raster/Vectorial (2) ===
             { text: "Una imagen vectorial puede ampliarse al tamaño de un cartel sin pixelación.", correct: true, explanation: "Correcto: Los vectores usan matemáticas, no píxeles." },
             { text: "Photoshop es la herramienta principal para editar imágenes vectoriales nativas.", correct: false, explanation: "Falso: Photoshop es raster; Illustrator, Corel o Inkscape son para vectores." },
             
-            // Video: fps, entrelazado, keyframes (3)
+            // === Video: fps, entrelazado, keyframes (3) ===
             { text: "A mayor tasa de fotogramas por segundo (fps), el movimiento se percibe más fluido.", correct: true, explanation: "Correcto: 60 fps es más fluido que 24 fps, ideal para videojuegos." },
             { text: "El escaneo progresivo (p) muestra las líneas pares e impares alternadamente, mejor que el entrelazado.", correct: false, explanation: "Falso: El progresivo muestra todas las líneas a la vez; el entrelazado alterna pares e impares." },
-            { text: "Un 'fotograma clave' (keyframe) almacena la imagen completa, permitiendo la búsqueda rápida en un video.", correct: true, explanation: "Correcto: Los I-frames son puntos de acceso independientes." }
+            { text: "Un 'fotograma clave' (keyframe) almacena la imagen completa, permitiendo la búsqueda rápida en un video.", correct: true, explanation: "Correcto: Los I-frames son puntos de acceso independientes." },
+            
+            // === NUEVOS: IA en imagen (4) ===
+            { text: "El 'upscaling' con IA (como ESRGAN o Topaz Gigapixel) puede ampliar imágenes agregando detalles que no existían originalmente.", correct: true, explanation: "Correcto: Las redes neuronales aprenden patrones para 'inventar' texturas y detalles creíbles al ampliar." },
+            { text: "DALL-E, Midjourney y Stable Diffusion son modelos de IA que generan imágenes a partir de descripciones de texto.", correct: true, explanation: "Correcto: Son modelos de difusión entrenados con millones de imágenes y sus descripciones." },
+            { text: "La segmentación semántica con IA solo puede reconocer rostros humanos, no objetos genéricos.", correct: false, explanation: "Falso: La segmentación semántica puede identificar múltiples clases: personas, autos, árboles, edificios, etc." },
+            { text: "Los modelos de IA para reconocimiento de imágenes (como ResNet o YOLO) se entrenan con datasets etiquetados (aprendizaje supervisado).", correct: true, explanation: "Correcto: Redes convolucionales (CNN) aprenden características visuales a partir de millones de imágenes anotadas." },
+            
+            // === NUEVOS: IA en video (2) ===
+            { text: "La interpolación de frames con IA (DAIN, RIFE) puede aumentar los fps de un video generando fotogramas intermedios sintéticos.", correct: true, explanation: "Correcto: Estas redes estiman el movimiento entre frames para crear nuevas imágenes intermedias." },
+            { text: "Los 'deepfakes' utilizan autoencoders o GANs para intercambiar rostros en videos, lo que plantea desafíos éticos y de desinformación.", correct: true, explanation: "Correcto: La tecnología deepfake puede crear videos falsos realistas, requiriendo verificación y detección forense." },
+            
+            // === NUEVOS: Nube y flujos de trabajo (2) ===
+            { text: "Plataformas como Frame.io permiten revisión colaborativa de videos en la nube con comentarios temporales.", correct: true, explanation: "Correcto: Frame.io integra revisión con marcas de tiempo, ideal para equipos de postproducción remotos." },
+            { text: "El 'cloud rendering' permite procesar animaciones 3D en servidores remotos, liberando la computadora local.", correct: true, explanation: "Correcto: Servicios como AWS Thinkbox, Google Cloud Render o Chaos Cloud realizan renderizado masivo escalable." }
         ];
 
-        // Confirmación: 30 preguntas exactas
+        // Verificación: deben ser 38 preguntas
         console.log("Total preguntas cargadas:", MASTER_QUESTIONS.length);
 
         let currentQuestions = [];
@@ -499,6 +635,13 @@
             userAnswers[index] = { selected: selectedBool, isCorrect: isCorrect };
             renderQuestions();
             updateScore();
+            
+            // Auto-scroll a siguiente pregunta
+            const nextUnanswered = userAnswers.findIndex((a, idx) => a.selected === null);
+            if (nextUnanswered !== -1) {
+                const nextCard = document.querySelector(`.question-card[data-idx='${nextUnanswered}']`);
+                if (nextCard) nextCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
         }
 
         function renderQuestions() {
@@ -509,6 +652,8 @@
                 const card = document.createElement('div');
                 card.className = 'question-card';
                 if (isAnswered) card.classList.add(answer.isCorrect ? 'correct' : 'incorrect');
+                card.setAttribute('data-idx', idx);
+                
                 card.innerHTML = `
                     <div class="question-text"><strong>${idx+1}.</strong> ${q.text}</div>
                     <div class="options">
@@ -534,43 +679,77 @@
 
         async function generatePDF() {
             const studentName = studentNameInput.value.trim() || "Estudiante anónimo";
-            const date = new Date().toLocaleString();
+            const date = new Date().toLocaleString('es-ES', { dateStyle: 'full', timeStyle: 'short' });
             const correctCount = userAnswers.filter(a => a.isCorrect === true).length;
             const total = currentQuestions.length;
+            const percentage = Math.round((correctCount / total) * 100);
+            
             const { jsPDF } = window.jspdf;
             const doc = new jsPDF();
+            
+            // Título
             doc.setFontSize(22);
             doc.setTextColor(255, 0, 102);
             doc.text("PixelStudio - Informe de Autoevaluación", 20, 20);
-            doc.setFontSize(11);
-            doc.setTextColor(100,100,100);
-            doc.text(`Fecha: ${date}`, 20, 35);
-            doc.text(`Estudiante: ${studentName}`, 20, 45);
-            doc.text(`Calificación: ${correctCount} / ${total} (${Math.round(correctCount/total*100)}%)`, 20, 55);
+            doc.setFontSize(10);
+            doc.setTextColor(100, 100, 100);
+            doc.text(`Incluye: IA (generación, upscaling, deepfakes) + Cloud (colaboración, renderizado)`, 20, 30);
+            doc.text(`Fecha: ${date}`, 20, 42);
+            doc.text(`Estudiante: ${studentName}`, 20, 52);
             doc.setFontSize(14);
-            doc.text("Detalle de respuestas:", 20, 70);
-            let y = 80;
-            for (let i=0; i<currentQuestions.length; i++) {
-                if (y > 270) { doc.addPage(); y=20; }
+            doc.setTextColor(0, 0, 0);
+            doc.text(`Calificación: ${correctCount} / ${total} (${percentage}%)`, 20, 65);
+            
+            // Detalle de respuestas
+            doc.setFontSize(12);
+            doc.text("Detalle de respuestas:", 20, 80);
+            let y = 92;
+            for (let i = 0; i < currentQuestions.length; i++) {
+                if (y > 270) { doc.addPage(); y = 20; }
                 const resp = userAnswers[i];
                 const respuestaTexto = resp.selected === null ? "Sin responder" : (resp.selected ? "Verdadero" : "Falso");
                 const estado = resp.isCorrect ? "✓ Correcto" : "✗ Incorrecto";
-                doc.setFontSize(10);
-                doc.text(`${i+1}. ${currentQuestions[i].text.substring(0,70)}...`, 20, y);
-                doc.text(`   Respuesta: ${respuestaTexto} - ${estado}`, 25, y+5);
-                doc.text(`   Explicación: ${currentQuestions[i].explanation.substring(0,80)}`, 25, y+10);
-                y += 20;
+                doc.setFontSize(9);
+                doc.setTextColor(50, 50, 50);
+                let questionText = currentQuestions[i].text;
+                if (questionText.length > 75) questionText = questionText.substring(0, 72) + "...";
+                doc.text(`${i+1}. ${questionText}`, 20, y);
+                doc.text(`   Respuesta: ${respuestaTexto} - ${estado}`, 25, y + 5);
+                let explanation = currentQuestions[i].explanation;
+                if (explanation.length > 85) explanation = explanation.substring(0, 82) + "...";
+                doc.text(`   ${explanation}`, 25, y + 10);
+                y += 18;
             }
+            
+            // Conclusiones ampliadas
             doc.addPage();
-            doc.setFontSize(14);
-            doc.setTextColor(255,102,0);
-            doc.text("Conclusiones del tema", 20,20);
+            doc.setFontSize(16);
+            doc.setTextColor(255, 102, 0);
+            doc.text("Conclusiones del tema (incluyendo IA y Nube)", 20, 25);
             doc.setFontSize(10);
-            doc.text("✓ Composición (regla de tercios, equilibrio, peso visual).", 20,35);
-            doc.text("✓ Resolución y proporción (DPI, PPI, aspect ratio).", 20,45);
-            doc.text("✓ Semiótica visual y lenguaje visual (ícono, índice, símbolo).", 20,55);
-            doc.text("✓ Psicología del color y su impacto emocional.", 20,65);
-            doc.save(`PixelStudio_${studentName.replace(/\s/g, '_')}.pdf`);
+            doc.setTextColor(0, 0, 0);
+            const conclusions = [
+                "1. Composición: Regla de los tercios, equilibrio y peso visual guían la mirada.",
+                "2. Resolución y proporción: DPI/PPI definen calidad; aspect ratio determina formato.",
+                "3. Semiótica visual: Ícono (parecido), índice (causa), símbolo (convención cultural).",
+                "4. Psicología del color: Rojo (alerta/urgencia), azul (confianza), amarillo (energía).",
+                "5. IA en imagen: DALL-E/Midjourney generan por texto; ESRGAN hace upscaling inteligente.",
+                "6. IA en video: DAIN/RIFE interpolan frames; deepfakes intercambian rostros (ética).",
+                "7. Nube: Frame.io para revisión colaborativa; cloud rendering escala procesamiento 3D.",
+                "8. Formatos: PNG (transparencia), JPEG (compresión), H.265 (mejor que H.264 para 4K)."
+            ];
+            let yc = 40;
+            conclusions.forEach(concl => {
+                if (yc > 270) { doc.addPage(); yc = 20; }
+                doc.text(concl, 20, yc);
+                yc += 8;
+            });
+            
+            doc.setFontSize(10);
+            doc.setTextColor(100, 100, 100);
+            doc.text("Recomendación: Repasar los conceptos donde fallaste y practicar con nuevas preguntas.", 20, yc + 15);
+            
+            doc.save(`PixelStudio_IA_Cloud_${studentName.replace(/\s/g, '_')}.pdf`);
         }
 
         // Modal doble clic
@@ -580,16 +759,25 @@
 
         // Service Worker y PWA
         function setupPWA() {
-            const swCode = `const CACHE_NAME='pixelstudio-v2';const urlsToCache=['./','./index.html','https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Poppins:wght@400;500;600;700&display=swap','https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js'];self.addEventListener('install',e=>e.waitUntil(caches.open(CACHE_NAME).then(c=>c.addAll(urlsToCache))));self.addEventListener('fetch',e=>e.respondWith(caches.match(e.request).then(r=>r||fetch(e.request))));`;
+            const swCode = `const CACHE_NAME='pixelstudio-v3';const urlsToCache=['./','./index.html','https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Poppins:wght@400;500;600;700&display=swap','https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js'];self.addEventListener('install',e=>e.waitUntil(caches.open(CACHE_NAME).then(c=>c.addAll(urlsToCache))));self.addEventListener('fetch',e=>e.respondWith(caches.match(e.request).then(r=>r||fetch(e.request))));`;
             const blob = new Blob([swCode], {type:'application/javascript'});
             navigator.serviceWorker.register(URL.createObjectURL(blob));
-            const manifest = { name:"PixelStudio Edu", short_name:"PixelStudio", start_url:".", display:"standalone", background_color:"#ffffff", theme_color:"#FF0066", icons:[{src:"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23FF0066'/%3E%3Cpolygon points='40,30 40,70 65,50' fill='white'/%3E%3C/svg%3E",sizes:"any",type:"image/svg+xml"}] };
+            const manifest = {
+                name: "PixelStudio IA + Cloud",
+                short_name: "PixelStudio",
+                start_url: ".",
+                display: "standalone",
+                background_color: "#ffffff",
+                theme_color: "#FF0066",
+                icons: [{src: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23FF0066'/%3E%3Cpolygon points='40,30 40,70 65,50' fill='white'/%3E%3C/svg%3E", sizes:"any", type:"image/svg+xml"}]
+            };
             const manifestBlob = new Blob([JSON.stringify(manifest)], {type:'application/json'});
             const link = document.createElement('link');
             link.rel = 'manifest';
             link.href = URL.createObjectURL(manifestBlob);
             document.head.appendChild(link);
         }
+        
         setupPWA();
         resetBtn.onclick = resetQuiz;
         pdfBtn.onclick = generatePDF;
